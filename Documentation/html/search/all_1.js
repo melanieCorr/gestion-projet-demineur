@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['game_2ec',['game.c',['../game_8c.html',1,'']]],
-  ['gestion_2dprojet_2ddemineur',['gestion-projet-demineur',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['displaygrid',['displayGrid',['../helper_8h.html#ac3162fcf883c55030424a7659a7a981d',1,'displayGrid(int *grid, int size):&#160;helper.c'],['../helper_8c.html#ac3162fcf883c55030424a7659a7a981d',1,'displayGrid(int *grid, int size):&#160;helper.c']]]
 ];
