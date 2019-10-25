@@ -1,4 +1,4 @@
-œ# gestion-projet-demineur
+# gestion-projet-demineur
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)  [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
 
 Ce projet est une version du jeu "Mines" ou "Démineur" disponible sur les systèmes Linux et Windows. Il se joue via la console.
