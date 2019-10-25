@@ -4,16 +4,24 @@
 
 int * initialize(int size, int nbBombs) {
 	int * grid = malloc(size * size * sizeof(int));
-	
+	int n;
 	/* Initialisation de toutes les cases à une valeur neutre (-10) */
 	for (int i = 0; i < size*size; i++)
 		grid[i] = -10;
 
 	/* Pose des mines à des positions aléatoires ( Une mine a la valeur -11 )*/ 
 	srand((unsigned)time(NULL)); 
-	for (int i = 0; i < nbBombs; i++)
-		grid[rand() % (size*size)] = -11;
-	
+	for (int i = 0; i < nbBombs; i++) {
+		n = rand() % (size*size);
+		if (grid[n]==-10)
+			grid[n] = -11;
+		else {
+			do {
+				n = rand() % (size*size);
+			}while(grid[n] == -11);
+			grid[n] = -11;
+		}
+	}
 	return grid;
 }
 
