@@ -17,26 +17,18 @@
  * \param nbBombs number of mines to place in the grid
  * \return return the grid
 */
-int * initialize(int size, int nbBombs) {
+int *initialize(int size, int nbBombs) {
 	int * grid = malloc(size * size * sizeof(int));
-	int n;
+	
 	/* Initialisation de toutes les cases à une valeur neutre (-10) */
 	for (int i = 0; i < size*size; i++)
-		grid[i] = -10;
+		grid[i] = EMPTY;
 
 	/* Pose des mines à des positions aléatoires ( Une mine a la valeur -11 )*/ 
 	srand((unsigned)time(NULL)); 
-	for (int i = 0; i < nbBombs; i++) {
-		n = rand() % (size*size);
-		if (grid[n]==-10)
-			grid[n] = -11;
-		else {
-			do {
-				n = rand() % (size*size);
-			}while(grid[n] == -11);
-			grid[n] = -11;
-		}
-	}
+	for (int i = 0; i < nbBombs; i++)
+		grid[rand() % (size*size)] = BOMB;
+	
 	return grid;
 }
 
@@ -127,6 +119,13 @@ void putNumbers(int *grid, int size){
 	}
 }
 
+/**
+ * \fn void rules(int size)
+ * \brief show the rules
+ * 
+ 
+ * \param size Size of the grid 
+*/
 void rules(int size){
 	printf( "\t\tRègles du jeu\n\n"
 			"Le but du jeu est de repérer toutes les mines cachées sous les tuiles d'une grille carrée.\n"
@@ -134,7 +133,12 @@ void rules(int size){
 	);
 }
 
-
+/**
+ * \fn int getPosClickedCell()
+ * \brief get the position of click cell
+ * 
+ * \return return the position of click
+*/
 int getPosClickedCell(){
 	int r, c;
 	do{
@@ -154,7 +158,12 @@ int getPosClickedCell(){
 
 	return r * size + c;
 }
-
+/**
+ * \fn gridParam getGridParam()
+ * \brief get the param of the grid
+ * 
+ * \return return param of the grid
+*/
 gridParam getGridParam(){
 	gridParam gp;
 	int val;
@@ -174,6 +183,12 @@ gridParam getGridParam(){
 	return gp;
 } 
 
+/**
+ * \fn gridParam menu()
+ * \brief show the menu game
+ * 
+ * \return return param of the grid
+*/
 gridParam menu(){
 	int choice;
 
@@ -203,7 +218,14 @@ gridParam menu(){
 
 	return gp;
 }
-
+/**
+ * \fn void showNumbers(int  *grid, int size,int pos)
+ * \brief on click uncovers the cell and adjacent cells (if any) if there is no bomb on said cell, also displays the numbers in each cell of its adjacent bombs
+ *
+ * \param grid Grid of the game
+ * \param size Size of the grid
+ * \param pos Position of the grid
+*/
 void showNumbers(int  *grid, int size,int pos){
 	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
 	int curCell = grid[pos];
@@ -218,15 +240,19 @@ void showNumbers(int  *grid, int size,int pos){
 		showNumbers(grid, size, r, c);  
 	}
 }
-<<<<<<< HEAD
 
 
-int parcours(int * grid, int size, int nb_Bomb){
-	int pos = row * size + col;
-=======
+ /* \fn int parcours(int *grid, int size, int nb_Bomb)
+ * \brief Checks the grid to see if all non-bomb cells have been uncovered and returns WIN if so, otherwise the game continues
+ *
+ * \param grid Grid of the game
+ * \param size Size of the grid
+ * \param nb_bomb number of mines
+ * \return WIN if all the grid was uncovered without touching any bombs, CONTINUE otherwise
+*/
 int parcours(int *grid, int size, int nb_Bomb){
 
->>>>>>> d73ad1c1569b73fb93137153bb3ac4b1f0ae77a9
+
 	int	s= size*size;
 	int cmpt=0;
 	for(int i = 0; i < s; ++i){
@@ -237,7 +263,16 @@ int parcours(int *grid, int size, int nb_Bomb){
 		return WIN;
 	return CONTINUE; 	
 }
-
+/**
+ * \fn int checkStatus(int *grid, int size, int pos, int nb_Bomb)
+ * \brief Checks the status of currently clicked cell to see if it's a bomb or a cell the number of adjecent bombs (if any, otherwise an empty cell) 
+ *
+ * \param grid Grid of the game
+ * \param size Size of the grid
+ * \param pos Position of the grid
+ * \param nb_bomb number of mines
+ * \return WIN if grid has been won according to the "parcours" function, CONTINUE if not
+*/
 int checkStatus(int *grid, int size, int pos, int nb_Bomb){
 
 
@@ -261,6 +296,13 @@ int checkStatus(int *grid, int size, int pos, int nb_Bomb){
 			return WIN;
 	}
 }
+/**
+ * \fn void lastShow(int *grid, int size)
+ * \brief Shows the grid's final status (either won or lost)
+ *
+ * \param grid Grid of the game
+ * \param size Size of the grid
+*/
 void lastShow(int *grid, int size){
 
 	int s = size * size;
