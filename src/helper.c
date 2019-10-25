@@ -68,7 +68,10 @@ void putNumbers(int *grid, int size){
 	for(int i = 0; i < size; ++i, nbBombs = 0){
 		if(grid[i] != BOMB){
 			for(int neigh = 0; neigh < NB_NEIGHBOURS; ++neigh){
-				nbBombs += (grid[i + neighbours[neigh]] == BOMB )? 1 : 0;
+				int pos = i + neighbours[neigh];
+				int r = pos / size, c = pos % size;
+				if(r >= 0 && r < size && c >= 0 && c < size)
+					nbBombs += (grid[pos] == BOMB )? 1 : 0;	
 			}
 		}
 		grid[i] = (nbBombs > 0) ? nbBombs : EMPTY; 	
