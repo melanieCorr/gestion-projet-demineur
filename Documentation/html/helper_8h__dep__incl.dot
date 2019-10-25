@@ -7,4 +7,6 @@ digraph "include/helper.h"
   Node2 [label="src/game.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html",tooltip="Main function. "];
   Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node3 [label="src/helper.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$helper_8c.html",tooltip="Game engine functions. "];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="src/test.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$test_8c_source.html"];
 }
