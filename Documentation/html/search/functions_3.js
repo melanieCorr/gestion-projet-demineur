@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['putnumbers',['putNumbers',['../helper_8h.html#a0bccd6d46e09fe40ac7c90a68e1a6329',1,'putNumbers(int *grid, int size):&#160;helper.c'],['../helper_8c.html#aece1b2dff3d657a06de028a356440efc',1,'putNumbers(int *grid, int size):&#160;helper.c']]]
+  ['initialize',['initialize',['../helper_8h.html#a203c066e418d48675ec3f1cfb5390dac',1,'initialize(int size, int nbBombs):&#160;helper.c'],['../helper_8c.html#a7d7e8eaa7d0b7db617edd3ad67cc0c4b',1,'initialize(int size, int nbBombs):&#160;helper.c']]]
 ];
