@@ -8,27 +8,58 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <assert.h>
 #include "../include/helper.h"
+
+
+
+/**
+ * \fn int existsAlready(int *grid, int size, int val)
+ * \brief Check the existence of a value in an array
+ * 
+ * \param grid the grid
+ * \param size Size of the grid
+ * \param nbBombs number of bombs to put in the grid
+ * \return returns 1 if value exists in grid, 0 otherwise
+*/
+int existsAlready(int *grid, int size, int val){
+	for(int i = 0; i < size; ++i)
+		if(grid[i] == val)
+			return 1;
+	return 0;
+}
 
 /**
  * \fn int *initialize(int size, int nbBombs)
  * \brief Function to initialize the grid
  * 
  * \param size Size of the grid
- * \param nbBombs number of mines to place in the grid
- * \return return the grid
+ *  \param nbBombs number of bombs to put in the grid
+ * \return returns a grid
 */
 int *initialize(int size, int nbBombs) {
 	int * grid = malloc(size * size * sizeof(int));
-	
+	assert(grid);
+	int *bombsPositions = calloc(nbBombs, nbBombs * sizeof *bombsPositions);
+	assert(bombsPositions);
+
+	int gridSize = size * size;
 	/* Initialisation de toutes les cases à une valeur neutre (-10) */
-	for (int i = 0; i < size*size; i++)
+	for (int i = 0; i < gridSize; i++)
 		grid[i] = EMPTY;
 
 	/* Pose des mines à des positions aléatoires ( Une mine a la valeur -11 )*/ 
 	srand((unsigned)time(NULL)); 
-	for (int i = 0; i < nbBombs; i++)
-		grid[rand() % (size*size)] = BOMB;
+	for (int i = 0; i < nbBombs; i++){
+		int pos;
+		do{
+
+			pos = rand() % gridSize;
+	
+		}while(existsAlready(bombsPositions, nbBombs, pos));
+		bombsPositions[i] = pos;
+		grid[pos] = BOMB;
+	}
 	
 	return grid;
 }
@@ -106,27 +137,7 @@ void displayGrid(int *grid, int size){
  * \param grid Grid of the game
  * \param size Size of the grid
 */
-void putNumbers2(int *grid, int size){
-	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
-	int nbBombs = 0;
-	int gridSize = size * size;
-	for(int i = 0; i < gridSize; ++i, nbBombs = 0){
-		if(grid[i] != BOMB){
-			for(int neigh = 0; neigh < NB_NEIGHBOURS; ++neigh){
-				int pos = i + neighbours[neigh];
-				int r = pos / size, c = pos % size;
-				if(pos > 0 && pos < gridSize && r >= 0 && r < size && c >= 0 && c < size)
-					nbBombs += (grid[pos] == BOMB )? 1 : 0;	
-			}
-			grid[i] = (nbBombs > 0) ? -nbBombs : EMPTY; 	
-		}
-		
-	}
-}
-
-
 void putNumbers(int *grid, int size){
-	int neighbours2[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
 	int neighboursRow[] = {-1, -1, -1,  0, 0,  1, 1, 1};
 	int neighboursCol[] = {-1, 0, 1,   -1, 1,  -1, 0, 1};
 	int nbBombs = 0;
@@ -160,10 +171,7 @@ void putNumbers(int *grid, int size){
  * \param size Size of the grid
  * \param pos Position of the grid
 */
-
-
 void showNumbers(int  *grid, int size, int pos){
-	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
 	
 	int neighboursRow[] = {-1, -1, -1,  0, 0,  1, 1, 1};
 	int neighboursCol[] = {-1, 0, 1,   -1, 1,  -1, 0, 1};
@@ -174,10 +182,7 @@ void showNumbers(int  *grid, int size, int pos){
 		return;
 
     if (curCell > EMPTY){
-    	printf("NOMBRE *= -1\tpos neigh: %d\tgrid = %d\n", pos, grid[pos]);
     	grid[pos] *= -1;
-    	printf("After: %d\n", grid[pos]);
-
     	return;
     }
 
@@ -185,7 +190,6 @@ void showNumbers(int  *grid, int size, int pos){
 	grid[pos] *= -1;
 
 	for(int i = 0; i < NB_NEIGHBOURS; ++i){
-		printf("NEIGHBOUR %d\n", i);
 		int r = pos / size; 
 		int c = pos % size;
 		
@@ -195,8 +199,6 @@ void showNumbers(int  *grid, int size, int pos){
 		if(rNeigh >= 0 && rNeigh < size && cNeigh >= 0 && cNeigh < size)
 			showNumbers(grid, size, rNeigh * size + cNeigh);  
 	}
-
-    printf("END function : %d\n", grid[pos]);
 }
 
 
@@ -236,32 +238,6 @@ int parcours(int * grid, int size, int nb_Bomb){
  * \return WIN if grid has been won according to the "parcours" function, CONTINUE if not
 */
 
-int checkStatus2(int *grid, int size, int pos, int nb_Bomb){
-
-
-	int curCell = grid[pos];
-	
-	if (curCell == BOMB)
-		return GAME_OVER;
-
-	if(curCell > EMPTY){
-		
-		if(parcours(grid, size,nb_Bomb) == CONTINUE)
-			return CONTINUE;
-		else
-			return WIN;
-	}
-	else{
-		showNumbers(grid, size, pos);
-		if(parcours(grid, size,nb_Bomb) == CONTINUE)
-			return CONTINUE;
-		else
-			return WIN;
-	}
-
-}
-
-
 int checkStatus(int *grid, int size, int pos, int nb_Bomb){
 
 
@@ -294,6 +270,12 @@ void lastShow(int *grid, int size){
 }
 
 
+/**
+ * \fn void displayEndGame(int size)
+ * \brief Shows a final message whether the user won or lost
+ *
+ * \param size Size of the grid
+*/
 void displayEndGame(int status){
 	switch(status){
 		case WIN:
@@ -310,9 +292,6 @@ void displayEndGame(int status){
 /**
  * \fn void rules(int size)
  * \brief show the rules
- * 
- 
- * \param size Size of the grid 
 */
 void rules(){
 	printf( "\t\tRègles du jeu\n\n"
@@ -324,9 +303,9 @@ void rules(){
 
 /**
  * \fn int getPosClickedCell()
- * \brief get the position of click cell
+ * \brief get the position of chosen cell
  * 
- * \return return the position of click
+ * \return returns the position of the chosen cell
 */
 int getPosClickedCell(int size){
 	int r, c, val;
@@ -347,11 +326,13 @@ int getPosClickedCell(int size){
 
 	return r * size + c;
 }
+
+
 /**
  * \fn gridParam getGridParam()
  * \brief get the param of the grid
  * 
- * \return return param of the grid
+ * \return returns a structure that contains the size and the number of bombs of the grid
 */
 gridParam getGridParam(){
 	gridParam gp;
@@ -372,6 +353,13 @@ gridParam getGridParam(){
 	return gp;
 } 
 
+
+/**
+ * \fn int displayGameMenu()
+ * \brief displays the game's menu
+ * 
+ * \return returns the user's choice whether playing, or read rules or quit the game
+*/
 int displayGameMenu(){
 
 	int choice, val;
@@ -400,8 +388,6 @@ gridParam menu(){
 	int choice;
 
 	printf( "\t\t\t**************************\n\t\t\t\tDÉMINEUR\n\t\t\t**************************\n\n\n");
-
-	
 	
 	gridParam gp;
 	gp.size = -1; 
@@ -423,13 +409,3 @@ gridParam menu(){
 
 
 
-
-void disp(int *grid, int size){
-	for(int r = 0; r < size; ++r){
-		for(int c = 0; c < size; ++c)
-			printf("%d\t", grid[r * size + c]);
-		printf("\n");
-	}
-	printf("\n\n\n");
-
-}
