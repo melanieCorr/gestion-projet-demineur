@@ -42,8 +42,8 @@ int main(void){
 			
 			int pos = getPosClickedCell(gp.size);
 			printf("Position : %d\n", pos);
-			showNumbers(gameGrid, gp.size, pos);
-			//gameStatus = checkStatus(gameGrid, gp.size, pos, gp.nbBombs);		
+			//showNumbers(gameGrid, gp.size, pos);
+			gameStatus = checkStatus(gameGrid, gp.size, pos, gp.nbBombs);		
 
 
 		}while(gameStatus == CONTINUE);

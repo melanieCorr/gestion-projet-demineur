@@ -151,6 +151,17 @@ void putNumbers(int *grid, int size){
 
 
 
+
+/**
+ * \fn void showNumbers(int  *grid, int size,int pos)
+ * \brief on click uncovers the cell and adjacent cells (if any) if there is no bomb on said cell, also displays the numbers in each cell of its adjacent bombs
+ *
+ * \param grid Grid of the game
+ * \param size Size of the grid
+ * \param pos Position of the grid
+*/
+
+
 void showNumbers(int  *grid, int size, int pos){
 	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
 	
@@ -175,8 +186,8 @@ void showNumbers(int  *grid, int size, int pos){
 
 	for(int i = 0; i < NB_NEIGHBOURS; ++i){
 		printf("NEIGHBOUR %d\n", i);
-		int r = i / size; 
-		int c = i % size;
+		int r = pos / size; 
+		int c = pos % size;
 		
 		int rNeigh = r + neighboursRow[i];
 		int cNeigh = c + neighboursCol[i];
@@ -187,6 +198,17 @@ void showNumbers(int  *grid, int size, int pos){
 
     printf("END function : %d\n", grid[pos]);
 }
+
+
+
+ /* \fn int parcours(int *grid, int size, int nb_Bomb)
+ * \brief Checks the grid to see if all non-bomb cells have been uncovered and returns WIN if so, otherwise the game continues
+ *
+ * \param grid Grid of the game
+ * \param size Size of the grid
+ * \param nb_bomb number of mines
+ * \return WIN if all the grid was uncovered without touching any bombs, CONTINUE otherwise
+*/
 
 int parcours(int * grid, int size, int nb_Bomb){
 
@@ -201,7 +223,20 @@ int parcours(int * grid, int size, int nb_Bomb){
 	return CONTINUE; 	
 }
 
-int checkStatus(int *grid, int size, int pos, int nb_Bomb){
+
+
+/**
+ * \fn int checkStatus(int *grid, int size, int pos, int nb_Bomb)
+ * \brief Checks the status of currently clicked cell to see if it's a bomb or a cell the number of adjecent bombs (if any, otherwise an empty cell) 
+ *
+ * \param grid Grid of the game
+ * \param size Size of the grid
+ * \param pos Position of the grid
+ * \param nb_bomb number of mines
+ * \return WIN if grid has been won according to the "parcours" function, CONTINUE if not
+*/
+
+int checkStatus2(int *grid, int size, int pos, int nb_Bomb){
 
 
 	int curCell = grid[pos];
@@ -225,6 +260,29 @@ int checkStatus(int *grid, int size, int pos, int nb_Bomb){
 	}
 
 }
+
+
+int checkStatus(int *grid, int size, int pos, int nb_Bomb){
+
+
+	int curCell = grid[pos];
+	
+	if (curCell == BOMB)
+		return GAME_OVER;
+
+	showNumbers(grid, size, pos);
+	return parcours(grid, size, nb_Bomb);
+
+}
+
+
+/**
+ * \fn void lastShow(int *grid, int size)
+ * \brief Shows the grid's final status (either won or lost)
+ *
+ * \param grid Grid of the game
+ * \param size Size of the grid
+*/
 void lastShow(int *grid, int size){
 
 	int s = size * size;
@@ -248,13 +306,7 @@ void displayEndGame(int status){
 	}
 }
 
-<<<<<<< HEAD
 
-
-
-
-void rules(){
-=======
 /**
  * \fn void rules(int size)
  * \brief show the rules
@@ -262,28 +314,22 @@ void rules(){
  
  * \param size Size of the grid 
 */
-void rules(int size){
->>>>>>> 871ef896a2c5ef94f8d49a3b0a518124a35e4110
+void rules(){
 	printf( "\t\tRègles du jeu\n\n"
 			"Le but du jeu est de repérer toutes les mines cachées sous les tuiles d'une grille carrée.\n"
 			"Vous aurez besoin de réflexion et d'un peu de chance pour les trouver toutes sans provoquer d'explosion.\n\n"
 	);
 }
 
-<<<<<<< HEAD
 
-int getPosClickedCell(int size){
-	int r, c, val;
-=======
 /**
  * \fn int getPosClickedCell()
  * \brief get the position of click cell
  * 
  * \return return the position of click
 */
-int getPosClickedCell(){
-	int r, c;
->>>>>>> 871ef896a2c5ef94f8d49a3b0a518124a35e4110
+int getPosClickedCell(int size){
+	int r, c, val;
 	do{
 	
 		printf("Veuillez taper le numéro de ligne\n");
@@ -326,18 +372,7 @@ gridParam getGridParam(){
 	return gp;
 } 
 
-<<<<<<< HEAD
 int displayGameMenu(){
-=======
-/**
- * \fn gridParam menu()
- * \brief show the menu game
- * 
- * \return return param of the grid
-*/
-gridParam menu(){
-	int choice;
->>>>>>> 871ef896a2c5ef94f8d49a3b0a518124a35e4110
 
 	int choice, val;
 
@@ -355,6 +390,12 @@ gridParam menu(){
 }
 
 
+/**
+ * \fn gridParam menu()
+ * \brief show the menu game
+ * 
+ * \return return param of the grid
+*/
 gridParam menu(){
 	int choice;
 
@@ -379,100 +420,7 @@ gridParam menu(){
 
 	return gp;
 }
-<<<<<<< HEAD
 
-
-
-
-
-
-=======
-/**
- * \fn void showNumbers(int  *grid, int size,int pos)
- * \brief on click uncovers the cell and adjacent cells (if any) if there is no bomb on said cell, also displays the numbers in each cell of its adjacent bombs
- *
- * \param grid Grid of the game
- * \param size Size of the grid
- * \param pos Position of the grid
-*/
-void showNumbers(int  *grid, int size,int pos){
-	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
-	int curCell = grid[pos];
-    cuCell *= -1;
-	if (curCell > 0 || curCell < EMPTY)
-		return;
-
-	for(int i = 0; i < NB_NEIGHBOURS; ++i){
-		int r = (pos + neighbours[i]) / size;
-		int c = (pos + neighbours[i]) % size;
-		i(r >=0 && r < size && c  >= 0 && c < size)
-		showNumbers(grid, size, r, c);  
-	}
-}
-
-
- /* \fn int parcours(int *grid, int size, int nb_Bomb)
- * \brief Checks the grid to see if all non-bomb cells have been uncovered and returns WIN if so, otherwise the game continues
- *
- * \param grid Grid of the game
- * \param size Size of the grid
- * \param nb_bomb number of mines
- * \return WIN if all the grid was uncovered without touching any bombs, CONTINUE otherwise
-*/
-int parcours(int *grid, int size, int nb_Bomb){
-
-
-	int	s= size*size;
-	int cmpt=0;
-	for(int i = 0; i < s; ++i){
-		if(grid[i]  < 0)
-			cmpt++;
-	}
-	if(cmpt == nb_Bomb)
-		return WIN;
-	return CONTINUE; 	
-}
-/**
- * \fn int checkStatus(int *grid, int size, int pos, int nb_Bomb)
- * \brief Checks the status of currently clicked cell to see if it's a bomb or a cell the number of adjecent bombs (if any, otherwise an empty cell) 
- *
- * \param grid Grid of the game
- * \param size Size of the grid
- * \param pos Position of the grid
- * \param nb_bomb number of mines
- * \return WIN if grid has been won according to the "parcours" function, CONTINUE if not
-*/
-int checkStatus(int *grid, int size, int pos, int nb_Bomb){
->>>>>>> 871ef896a2c5ef94f8d49a3b0a518124a35e4110
-
-
-
-<<<<<<< HEAD
-=======
-	if(curCell > EMPTY){
-		grid[pos] *= -1;
-		if(parcours(grid, size,nb_Bomb) == CONTINUE)
-			return CONTINUE;
-		else
-			return WIN;
-	}
-	else{
-		showNumbers(grid, size, pos);
-		if(parcours(grid, size,nb_Bomb) == CONTINUE)
-			return CONTINUE;
-		else
-			return WIN;
-	}
-}
-/**
- * \fn void lastShow(int *grid, int size)
- * \brief Shows the grid's final status (either won or lost)
- *
- * \param grid Grid of the game
- * \param size Size of the grid
-*/
-void lastShow(int *grid, int size){
->>>>>>> 871ef896a2c5ef94f8d49a3b0a518124a35e4110
 
 
 
