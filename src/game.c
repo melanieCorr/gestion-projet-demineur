@@ -23,7 +23,7 @@ int main(void){
 		do{
 			displayGrid(gameGrid, gp.size);
 			int pos = getPosClickedCell();
-						
+			gameStatus = checkStatus(grid, size, pos, gp.nbBombs);		
 
 
 		}while(gameStatus == CONTINUE);

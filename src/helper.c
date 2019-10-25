@@ -211,6 +211,8 @@ void showNumbers(int  *grid, int size,int row, int col){
 		showNumbers(grid, size, r, c);  
 	}
 }
+
+
 int parcours(int * grid, int size, int nb_Bomb){
 	int pos = row * size + col;
 	int	s= size*size;
