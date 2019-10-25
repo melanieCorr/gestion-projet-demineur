@@ -1,6 +1,9 @@
 
 
-#define 
+#define NB_NEIGHBOURS 8
+#define BOMB -11
+#define EMPTY -10
+#define GAME_OVER 0
 
 
 int menu();
