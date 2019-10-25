@@ -1,4 +1,9 @@
-
+/**
+ * \file helper.h
+ * \brief prototypes of functions
+ * \author Mélanie, Yasmine, Nour, Tidiane, Massi, Ziri
+ * \date 25 Octobre 2019 
+*/
 
 #define NB_NEIGHBOURS 8
 #define BOMB -11
