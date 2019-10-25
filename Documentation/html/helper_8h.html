@@ -127,15 +127,30 @@ Functions</h2></td></tr>
 <tr class="memitem:a0bccd6d46e09fe40ac7c90a68e1a6329"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helper_8h.html#a0bccd6d46e09fe40ac7c90a68e1a6329">putNumbers</a> (int *grid, int size)</td></tr>
 <tr class="memdesc:a0bccd6d46e09fe40ac7c90a68e1a6329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of mines in the surrounding areas.  <a href="#a0bccd6d46e09fe40ac7c90a68e1a6329">More...</a><br /></td></tr>
 <tr class="separator:a0bccd6d46e09fe40ac7c90a68e1a6329"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d794ac04810d983d6efedd95d444eb2"><td class="memItemLeft" align="right" valign="top"><a id="a6d794ac04810d983d6efedd95d444eb2"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>showNumbers</b> (int *grid, int size)</td></tr>
-<tr class="separator:a6d794ac04810d983d6efedd95d444eb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76f7bb907e521ef6b7c9305f2d1a684b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helper_8h.html#a76f7bb907e521ef6b7c9305f2d1a684b">showNumbers</a> (int *grid, int size, int pos)</td></tr>
+<tr class="memdesc:a76f7bb907e521ef6b7c9305f2d1a684b"><td class="mdescLeft">&#160;</td><td class="mdescRight">on click uncovers the cell and adjacent cells (if any) if there is no bomb on said cell, also displays the numbers in each cell of its adjacent bombs  <a href="#a76f7bb907e521ef6b7c9305f2d1a684b">More...</a><br /></td></tr>
+<tr class="separator:a76f7bb907e521ef6b7c9305f2d1a684b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3162fcf883c55030424a7659a7a981d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helper_8h.html#ac3162fcf883c55030424a7659a7a981d">displayGrid</a> (int *grid, int size)</td></tr>
 <tr class="memdesc:ac3162fcf883c55030424a7659a7a981d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grid display.  <a href="#ac3162fcf883c55030424a7659a7a981d">More...</a><br /></td></tr>
 <tr class="separator:ac3162fcf883c55030424a7659a7a981d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae79c821e8d42a8806e4bd4f20f9fe201"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helper_8h.html#ae79c821e8d42a8806e4bd4f20f9fe201">getPosClickedCell</a> ()</td></tr>
-<tr class="memdesc:ae79c821e8d42a8806e4bd4f20f9fe201"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the position of click cell  <a href="#ae79c821e8d42a8806e4bd4f20f9fe201">More...</a><br /></td></tr>
-<tr class="separator:ae79c821e8d42a8806e4bd4f20f9fe201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1afba34868dce259eed69b3eabccaabb"><td class="memItemLeft" align="right" valign="top"><a id="a1afba34868dce259eed69b3eabccaabb"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getPosClickedCell</b> (int size)</td></tr>
+<tr class="separator:a1afba34868dce259eed69b3eabccaabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dbb98579980e3bae3343e1082f3c955"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helper_8h.html#a5dbb98579980e3bae3343e1082f3c955">lastShow</a> (int *grid, int size)</td></tr>
+<tr class="memdesc:a5dbb98579980e3bae3343e1082f3c955"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shows the grid's final status (either won or lost)  <a href="#a5dbb98579980e3bae3343e1082f3c955">More...</a><br /></td></tr>
+<tr class="separator:a5dbb98579980e3bae3343e1082f3c955"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aec91290c07ba014b8f4112b485f04b"><td class="memItemLeft" align="right" valign="top"><a id="a2aec91290c07ba014b8f4112b485f04b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>displayGame</b> (int status)</td></tr>
+<tr class="separator:a2aec91290c07ba014b8f4112b485f04b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa27a5c5cdb5b70781113461c439b9bac"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helper_8h.html#aa27a5c5cdb5b70781113461c439b9bac">checkStatus</a> (int *grid, int size, int pos, int nb_Bomb)</td></tr>
+<tr class="memdesc:aa27a5c5cdb5b70781113461c439b9bac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the status of currently clicked cell to see if it's a bomb or a cell the number of adjecent bombs (if any, otherwise an empty cell)  <a href="#aa27a5c5cdb5b70781113461c439b9bac">More...</a><br /></td></tr>
+<tr class="separator:aa27a5c5cdb5b70781113461c439b9bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7082f178d81984256d7536da36e72727"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helper_8h.html#a7082f178d81984256d7536da36e72727">displayEndGame</a> (int status)</td></tr>
+<tr class="memdesc:a7082f178d81984256d7536da36e72727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shows a final message whether the user won or lost.  <a href="#a7082f178d81984256d7536da36e72727">More...</a><br /></td></tr>
+<tr class="separator:a7082f178d81984256d7536da36e72727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d53c24e5dd52d226eccdb63d9a24e96"><td class="memItemLeft" align="right" valign="top"><a id="a1d53c24e5dd52d226eccdb63d9a24e96"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>disp</b> (int *grid, int size)</td></tr>
+<tr class="separator:a1d53c24e5dd52d226eccdb63d9a24e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>prototypes of functions </p>
@@ -144,6 +159,88 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>showNumbers</b> (int *
 
 <p class="definition">Definition in file <a class="el" href="helper_8h_source.html">helper.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="aa27a5c5cdb5b70781113461c439b9bac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa27a5c5cdb5b70781113461c439b9bac">&#9670;&nbsp;</a></span>checkStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int checkStatus </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>grid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nb_Bomb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks the status of currently clicked cell to see if it's a bomb or a cell the number of adjecent bombs (if any, otherwise an empty cell) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">grid</td><td>Grid of the game </td></tr>
+    <tr><td class="paramname">size</td><td>Size of the grid </td></tr>
+    <tr><td class="paramname">pos</td><td>Position of the grid </td></tr>
+    <tr><td class="paramname">nb_bomb</td><td>number of mines </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>WIN if grid has been won according to the "parcours" function, CONTINUE if not </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00241">241</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
+
+</div>
+</div>
+<a id="a7082f178d81984256d7536da36e72727"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7082f178d81984256d7536da36e72727">&#9670;&nbsp;</a></span>displayEndGame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void displayEndGame </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shows a final message whether the user won or lost. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Size of the grid </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00279">279</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
+
+</div>
+</div>
 <a id="ac3162fcf883c55030424a7659a7a981d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac3162fcf883c55030424a7659a7a981d">&#9670;&nbsp;</a></span>displayGrid()</h2>
 
@@ -179,29 +276,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>showNumbers</b> (int *
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00058">58</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
-
-</div>
-</div>
-<a id="ae79c821e8d42a8806e4bd4f20f9fe201"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae79c821e8d42a8806e4bd4f20f9fe201">&#9670;&nbsp;</a></span>getPosClickedCell()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int getPosClickedCell </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>get the position of click cell </p>
-<dl class="section return"><dt>Returns</dt><dd>return the position of click </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00142">142</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00090">90</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
 
 </div>
 </div>
@@ -235,13 +310,61 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>showNumbers</b> (int *
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>Size of the grid </td></tr>
+    <tr><td class="paramname">nbBombs</td><td>number of bombs to put in the grid </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>returns a grid</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Size of the grid </td></tr>
     <tr><td class="paramname">nbBombs</td><td>number of mines to place in the grid </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>return the grid </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00020">20</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00040">40</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
+
+</div>
+</div>
+<a id="a5dbb98579980e3bae3343e1082f3c955"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dbb98579980e3bae3343e1082f3c955">&#9670;&nbsp;</a></span>lastShow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lastShow </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>grid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shows the grid's final status (either won or lost) </p>
+<hr/>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">grid</td><td>Grid of the game </td></tr>
+    <tr><td class="paramname">size</td><td>Size of the grid </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00262">262</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
 
 </div>
 </div>
@@ -263,7 +386,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>showNumbers</b> (int *
 <p>show the menu game </p>
 <dl class="section return"><dt>Returns</dt><dd>return param of the grid </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00192">192</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00387">387</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
 
 </div>
 </div>
@@ -302,7 +425,53 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>showNumbers</b> (int *
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00105">105</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00140">140</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
+
+</div>
+</div>
+<a id="a76f7bb907e521ef6b7c9305f2d1a684b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76f7bb907e521ef6b7c9305f2d1a684b">&#9670;&nbsp;</a></span>showNumbers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void showNumbers </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>grid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>on click uncovers the cell and adjacent cells (if any) if there is no bomb on said cell, also displays the numbers in each cell of its adjacent bombs </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">grid</td><td>Grid of the game </td></tr>
+    <tr><td class="paramname">size</td><td>Size of the grid </td></tr>
+    <tr><td class="paramname">pos</td><td>Position of the grid </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="helper_8c_source.html#l00174">174</a> of file <a class="el" href="helper_8c_source.html">helper.c</a>.</p>
 
 </div>
 </div>
