@@ -6,6 +6,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include "../include/helper.h"
 
@@ -60,9 +61,9 @@ void displayGrid(int *grid, int size){
     printf("\n     ");     
 	for(int i = 0; i < size; ++i){
 		if(i < 8)
-        	printf("%d   ", i + 1);
+        	printf("%d   ", i);
 		else	
-			printf("%d  ", i + 1);
+			printf("%d  ", i);
 			
 	}
 	printf("\n");
@@ -71,22 +72,25 @@ void displayGrid(int *grid, int size){
 	for(int row = 0; row < size; ++row){
 		makeBorders(size);
 		if(row < 9)	
-			printf("%d  ", row + 1);
+			printf("%d  ", row);
 		else
-			printf("%d ", row + 1);
+			printf("%d ", row);
 		for(int col = 0; col < size; ++col){
 			int val = grid[row * size + col];
 			printf("|");
 			if(val < 0 /*|| val == -EMPTY*/){
                 printf("   ");
             }
-			else if(val == BOMB){
-                printf(" B ");
+			else if(val == -BOMB){
+                printf("B  ");
             }
             else{
-            	int dispVal = (val == EMPTY) ? 0 : val;
-                printf("%d ", dispVal);
-            }
+            	int dispVal = (val == -EMPTY) ? 0 : val;
+            	if(dispVal < 10)
+                	printf("%d  ", dispVal);
+            	else
+            		printf("%d ", dispVal);
+            }	
 		}
 		printf("|\n");
 	}
@@ -102,7 +106,7 @@ void displayGrid(int *grid, int size){
  * \param grid Grid of the game
  * \param size Size of the grid
 */
-void putNumbers(int *grid, int size){
+void putNumbers2(int *grid, int size){
 	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
 	int nbBombs = 0;
 	int gridSize = size * size;
@@ -111,15 +115,144 @@ void putNumbers(int *grid, int size){
 			for(int neigh = 0; neigh < NB_NEIGHBOURS; ++neigh){
 				int pos = i + neighbours[neigh];
 				int r = pos / size, c = pos % size;
-				if(r >= 0 && r < size && c >= 0 && c < size)
+				if(pos > 0 && pos < gridSize && r >= 0 && r < size && c >= 0 && c < size)
 					nbBombs += (grid[pos] == BOMB )? 1 : 0;	
 			}
+			grid[i] = (nbBombs > 0) ? -nbBombs : EMPTY; 	
 		}
-		grid[i] = (nbBombs > 0) ? nbBombs : EMPTY; 	
+		
 	}
 }
 
-void rules(int size){
+
+void putNumbers(int *grid, int size){
+	int neighbours2[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
+	int neighboursRow[] = {-1, -1, -1,  0, 0,  1, 1, 1};
+	int neighboursCol[] = {-1, 0, 1,   -1, 1,  -1, 0, 1};
+	int nbBombs = 0;
+	int gridSize = size * size;
+	for(int i = 0; i < gridSize; ++i, nbBombs = 0){
+		if(grid[i] != BOMB){
+			for(int neigh = 0; neigh < NB_NEIGHBOURS; ++neigh){
+				int r = i / size; 
+				int c = i % size;
+				
+				int rNeigh = r + neighboursRow[neigh];
+				int cNeigh = c + neighboursCol[neigh];
+
+				if(rNeigh >= 0 && rNeigh < size && cNeigh >= 0 && cNeigh < size)
+					nbBombs += (grid[rNeigh * size + cNeigh] == BOMB )? 1 : 0;	
+			}
+			grid[i] = (nbBombs > 0) ? -nbBombs : EMPTY; 	
+		}
+		
+	}
+}
+
+
+
+void showNumbers(int  *grid, int size, int pos){
+	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
+	
+	int neighboursRow[] = {-1, -1, -1,  0, 0,  1, 1, 1};
+	int neighboursCol[] = {-1, 0, 1,   -1, 1,  -1, 0, 1};
+
+	int curCell = grid[pos];    
+
+	if (curCell > 0 ||curCell == BOMB)
+		return;
+
+    if (curCell > EMPTY){
+    	printf("NOMBRE *= -1\tpos neigh: %d\tgrid = %d\n", pos, grid[pos]);
+    	grid[pos] *= -1;
+    	printf("After: %d\n", grid[pos]);
+
+    	return;
+    }
+
+
+	grid[pos] *= -1;
+
+	for(int i = 0; i < NB_NEIGHBOURS; ++i){
+		printf("NEIGHBOUR %d\n", i);
+		int r = i / size; 
+		int c = i % size;
+		
+		int rNeigh = r + neighboursRow[i];
+		int cNeigh = c + neighboursCol[i];
+
+		if(rNeigh >= 0 && rNeigh < size && cNeigh >= 0 && cNeigh < size)
+			showNumbers(grid, size, rNeigh * size + cNeigh);  
+	}
+
+    printf("END function : %d\n", grid[pos]);
+}
+
+int parcours(int * grid, int size, int nb_Bomb){
+
+	int	s= size*size;
+	int cmpt = 0;
+	for(int i = 0; i < s; ++i){
+		if(grid[i]  < 0)
+			cmpt++;
+	}
+	if(cmpt == nb_Bomb)
+		return WIN;
+	return CONTINUE; 	
+}
+
+int checkStatus(int *grid, int size, int pos, int nb_Bomb){
+
+
+	int curCell = grid[pos];
+	
+	if (curCell == BOMB)
+		return GAME_OVER;
+
+	if(curCell > EMPTY){
+		
+		if(parcours(grid, size,nb_Bomb) == CONTINUE)
+			return CONTINUE;
+		else
+			return WIN;
+	}
+	else{
+		showNumbers(grid, size, pos);
+		if(parcours(grid, size,nb_Bomb) == CONTINUE)
+			return CONTINUE;
+		else
+			return WIN;
+	}
+
+}
+void lastShow(int *grid, int size){
+
+	int s = size * size;
+
+	for(int i = 0; i < s; ++i){
+		if(grid[i] < 0)
+			grid[i] *= -1;
+	}
+}
+
+
+void displayEndGame(int status){
+	switch(status){
+		case WIN:
+			printf("Bravo!!!\nVous avez trouvé toutes les mines dissimulées\n");
+			break;
+
+		default:
+			printf("BOUM !!!\nVous venez de toucher une mine");
+			break;	
+	}
+}
+
+
+
+
+
+void rules(){
 	printf( "\t\tRègles du jeu\n\n"
 			"Le but du jeu est de repérer toutes les mines cachées sous les tuiles d'une grille carrée.\n"
 			"Vous aurez besoin de réflexion et d'un peu de chance pour les trouver toutes sans provoquer d'explosion.\n\n"
@@ -127,22 +260,22 @@ void rules(int size){
 }
 
 
-int getPosClickedCell(){
-	int r, c;
+int getPosClickedCell(int size){
+	int r, c, val;
 	do{
 	
 		printf("Veuillez taper le numéro de ligne\n");
-		int val = scanf("%d", r);
+		val = scanf("%d", &r);
 	
-	}while(val != 1);
+	}while(val != 1 && r < 0 && r >= size);
 
 	
 	do{
 	
 		printf("Veuillez taper le numéro de colonne\n");
-		int val = scanf("%d", c);
+		val = scanf("%d", &c);
 	
-	}while(val != 1);	
+	}while(val != 1 && c < 0 && c >= size);	
 
 	return r * size + c;
 }
@@ -166,99 +299,66 @@ gridParam getGridParam(){
 	return gp;
 } 
 
-gridParam menu(){
-	int choice;
+int displayGameMenu(){
 
-	printf( "\t\t\t*******************\n\t\t\tDémineur\n\t\t\t*******************\n\n\n"
-			"Veuillez taper votre choix\n\n"
-			"1)- Jouer\n"
-			"2)- Règles du jeu\n";
-			"3)- Quitter\n"
-	);
+	int choice, val;
 
 	do{
-
-		int val = scanf("%d", &choice);
+		printf(	"Veuillez taper votre choix\n\n"
+				"1)- Jouer\n"
+				"2)- Règles du jeu\n"
+				"3)- Quitter\n\n\n"
+		);
+		val = scanf("%d", &choice);
 
 	}while(val != 1 && choice < 1 && choice > 3);
 
+	return choice;
+}
+
+
+gridParam menu(){
+	int choice;
+
+	printf( "\t\t\t**************************\n\t\t\t\tDÉMINEUR\n\t\t\t**************************\n\n\n");
+
+	
+	
 	gridParam gp;
 	gp.size = -1; 
-	switch(choice){
-		case 1: gp = getGridParam();
-				break;
-		case 2: rules();
-				break;
-		default:
-			break;	
-	}	
+
+	do{
+		choice = displayGameMenu();
+		switch(choice){
+			case 1: gp = getGridParam();
+					break;
+			case 2: rules();
+					break;
+			default:
+				break;	
+		}
+	}while(choice == 2);
 
 	return gp;
 }
 
-void showNumbers(int  *grid, int size,int pos){
-	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
-	int curCell = grid[pos];
-    cuCell *= -1;
-	if (curCell > 0 || curCell < EMPTY)
-		return;
 
-	for(int i = 0; i < NB_NEIGHBOURS; ++i){
-		int r = (pos + neighbours[i]) / size;
-		int c = (pos + neighbours[i]) % size;
-		i(r >=0 && r < size && c  >= 0 && c < size)
-		showNumbers(grid, size, r, c);  
+
+
+
+
+
+
+
+
+
+
+void disp(int *grid, int size){
+	for(int r = 0; r < size; ++r){
+		for(int c = 0; c < size; ++c)
+			printf("%d\t", grid[r * size + c]);
+		printf("\n");
 	}
-}
-<<<<<<< HEAD
+	printf("\n\n\n");
 
-
-int parcours(int * grid, int size, int nb_Bomb){
-	int pos = row * size + col;
-=======
-int parcours(int *grid, int size, int nb_Bomb){
-
->>>>>>> d73ad1c1569b73fb93137153bb3ac4b1f0ae77a9
-	int	s= size*size;
-	int cmpt=0;
-	for(int i = 0; i < s; ++i){
-		if(grid[i]  < 0)
-			cmpt++;
-	}
-	if(cmpt == nb_Bomb)
-		return WIN;
-	return CONTINUE; 	
-}
-
-int checkStatus(int *grid, int size, int pos, int nb_Bomb){
-
-
-	int curCell = grid[pos];
-	
-	if (curCell == BOMB)
-		return GAME_OVER;
-
-	if(curCell > EMPTY){
-		grid[pos] *= -1;
-		if(parcours(grid, size,nb_Bomb) == CONTINUE)
-			return CONTINUE;
-		else
-			return WIN;
-	}
-	else{
-		showNumbers(grid, size, pos);
-		if(parcours(grid, size,nb_Bomb) == CONTINUE)
-			return CONTINUE;
-		else
-			return WIN;
-	}
-}
-void lastShow(int *grid, int size){
-
-	int s = size * size;
-
-	for(int i = 0; i < s; ++i){
-		if(grid[i]<0)
-			grid[i] * = -1;
-	}
 }

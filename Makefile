@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-W -Wall -O3
+CFLAGS=-W -g -Wall -O3
 PROGNAME=demineur
 VPATH=include:src
 RM=rm -rf

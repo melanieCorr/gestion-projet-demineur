@@ -20,8 +20,13 @@ typedef struct gridParam{
 gridParam menu();
 int * initialize(int size, int nbBombs);
 void putNumbers(int *grid, int size);
-int showNumbers(int *grid, int size);
+void showNumbers(int  *grid, int size, int pos);
 void displayGrid(int *grid, int size);
-int getPosClickedCell();
+int getPosClickedCell(int size);
+void lastShow(int *grid, int size);
+void displayGame(int status);
+int checkStatus(int *grid, int size, int pos, int nb_Bomb);
+void displayEndGame(int status);
 
-
+// Debug
+void disp(int *grid, int size);
