@@ -76,3 +76,55 @@ void putNumbers(int *grid, int size){
 }
 
 
+void showNumbers(int  *grid, int size,int row, int col){
+	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
+	int pos = row * size + col;
+	int curCell = grid[pos];
+    cuCell *= -1;
+	if (curCell > 0 || curCell < EMPTY)
+		return;
+
+	for(int i = 0; i < NB_NEIGHBOURS; ++i){
+		int r = (pos + neighbours[i]) / size;
+		int c = (pos + neighbours[i]) % size;
+		i(r >=0 && r < size && c  >= 0 && c < size)
+		showNumbers(grid, size, r, c);  
+	}
+}
+int parcours(int * grid, int size, int nb_Bomb){
+	int pos = row * size + col;
+	int	s= size*size;
+	int cmpt=0;
+	for(int i = 0; i < s; ++i){
+		if(grid[pos + i]  < 0)
+			cmpt++;
+	}
+	if(cmpt == nb_Bomb)
+		return WIN;
+	return CONTINUE; 	
+}
+
+int checkStatus(int *grid, int size, int row, int col, int nb_Bomb){
+
+	int pos = row * size + col;
+	int curCell = grid[pos];
+	
+	if (curCell == BOMB)
+		return GAME_OVER;
+
+	if(curCell > EMPTY){
+		grid[pos] *= -1;
+		if(parcours(grid, size,nb_Bomb) == CONTINUE)
+			return CONTINUE;
+		else
+			return WIN;
+	}
+	else{
+		showNumbers(grid, size, row, col);
+		if(parcours(grid, size,nb_Bomb) == CONTINUE)
+			return CONTINUE;
+		else
+			return WIN;
+	}
+}
+

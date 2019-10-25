@@ -4,6 +4,8 @@
 #define BOMB -11
 #define EMPTY -10
 #define GAME_OVER 0
+#define CONTINUE 200
+#define WIN 100
 
 
 int menu();
