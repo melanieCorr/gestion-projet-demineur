@@ -1,7 +1,7 @@
-# gestion-projet-demineur
+# Démineur
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)  [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
 
-Ce projet est une version du jeu "Mines" ou "Démineur". Il se joue via la console.
+Ce projet est une version du jeu "Mines" ou "Démineur" réalisé dans le cadre d'un cours de gestion de projets. Il se joue via la console.
 
 ## Pour commencer
 Pour commencer, télécharger le jeu en ligne en saisissant la commande ``git clone https://github.com/melanieCorr/gestion-projet-demineur.git``
