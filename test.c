@@ -117,8 +117,9 @@ void putNumbers(int *grid, int size){
 }
 
 
-void showNumbers(int  *grid, int size,int pos){
+void showNumbers(int  *grid, int size,int row, int col){
 	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
+	int pos = row * size + col;
 	int curCell = grid[pos];
     cuCell *= -1;
 	if (curCell > 0 || curCell < EMPTY)
@@ -131,12 +132,12 @@ void showNumbers(int  *grid, int size,int pos){
 		showNumbers(grid, size, r, c);  
 	}
 }
-int parcours(int *grid, int size, int nb_Bomb){
-
+int parcours(int * grid, int size, int nb_Bomb){
+	int pos = row * size + col;
 	int	s= size*size;
 	int cmpt=0;
 	for(int i = 0; i < s; ++i){
-		if(grid[i]  < 0)
+		if(grid[pos + i]  < 0)
 			cmpt++;
 	}
 	if(cmpt == nb_Bomb)
@@ -144,9 +145,9 @@ int parcours(int *grid, int size, int nb_Bomb){
 	return CONTINUE; 	
 }
 
-int checkStatus(int *grid, int size, int pos, int nb_Bomb){
+int checkStatus(int *grid, int size, int row, int col, int nb_Bomb){
 
-
+	int pos = row * size + col;
 	int curCell = grid[pos];
 	
 	if (curCell == BOMB)
@@ -160,7 +161,7 @@ int checkStatus(int *grid, int size, int pos, int nb_Bomb){
 			return WIN;
 	}
 	else{
-		showNumbers(grid, size, pos);
+		showNumbers(grid, size, row, col);
 		if(parcours(grid, size,nb_Bomb) == CONTINUE)
 			return CONTINUE;
 		else
@@ -168,11 +169,10 @@ int checkStatus(int *grid, int size, int pos, int nb_Bomb){
 	}
 }
 void lastShow(int *grid, int size){
-
+	int pos = row * size + col;
 	int s = size * size;
 
 	for(int i = 0; i < s; ++i){
-		if(grid[i]<0)
-			grid[i] * = -1;
-	}
+		if(grid[pos + i]<0)
+			grid[pos +i] * = -1;
 }
