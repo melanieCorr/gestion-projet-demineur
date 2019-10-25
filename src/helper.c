@@ -1,8 +1,23 @@
+/**
+ * \file helper.c
+ * \brief Game engine functions
+ * \author Mélanie, Yasmine, Nour, Tidiane, Massi, Ziri
+ * \date 25 Octobre 2019 
+*/
+
 #include <stdio.h>
 #include <time.h>
 #include "../include/helper.h"
 
-int * initialize(int size, int nbBombs) {
+/**
+ * \fn int *initialize(int size, int nbBombs)
+ * \brief Function to initialize the grid
+ * 
+ * \param size Size of the grid
+ * \param nbBombs number of mines to place in the grid
+ * \return return the grid
+*/
+int *initialize(int size, int nbBombs) {
 	int * grid = malloc(size * size * sizeof(int));
 	
 	/* Initialisation de toutes les cases à une valeur neutre (-10) */
@@ -17,6 +32,13 @@ int * initialize(int size, int nbBombs) {
 	return grid;
 }
 
+
+/**
+ * \fn void makeBorders(int size)
+ * \brief Function to create the borders of any grid
+ * 
+ * \param size Size of the grid
+*/
 void makeBorders(int size){
     printf("   ");
     for(int i = 0; i < size; i++){
@@ -25,6 +47,14 @@ void makeBorders(int size){
     printf("\n");
 }
 
+
+/**
+ * \fn void displayGrid(int *grid, int size)
+ * \brief Grid display
+ * 
+ * \param grid Grid of the game
+ * \param size Size of the grid 
+*/
 void displayGrid(int *grid, int size){
     // Display columns numbers
     printf("\n     ");     
@@ -64,6 +94,14 @@ void displayGrid(int *grid, int size){
 	printf("\n");	
 }
 
+
+/**
+ * \fn putNumbers(int *grid, int size)
+ * \brief Number of mines in the surrounding areas
+ * 
+ * \param grid Grid of the game
+ * \param size Size of the grid
+*/
 void putNumbers(int *grid, int size){
 	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
 	int nbBombs = 0;
@@ -156,5 +194,57 @@ gridParam menu(){
 	}	
 
 	return gp;
+}
+
+void showNumbers(int  *grid, int size,int row, int col){
+	int neighbours[] = {-size - 1, -size, -size + 1,  -1, 1,  size - 1,  size, size + 1};
+	int pos = row * size + col;
+	int curCell = grid[pos];
+    cuCell *= -1;
+	if (curCell > 0 || curCell < EMPTY)
+		return;
+
+	for(int i = 0; i < NB_NEIGHBOURS; ++i){
+		int r = (pos + neighbours[i]) / size;
+		int c = (pos + neighbours[i]) % size;
+		i(r >=0 && r < size && c  >= 0 && c < size)
+		showNumbers(grid, size, r, c);  
+	}
+}
+int parcours(int * grid, int size, int nb_Bomb){
+	int pos = row * size + col;
+	int	s= size*size;
+	int cmpt=0;
+	for(int i = 0; i < s; ++i){
+		if(grid[pos + i]  < 0)
+			cmpt++;
+	}
+	if(cmpt == nb_Bomb)
+		return WIN;
+	return CONTINUE; 	
+}
+
+int checkStatus(int *grid, int size, int row, int col, int nb_Bomb){
+
+	int pos = row * size + col;
+	int curCell = grid[pos];
+	
+	if (curCell == BOMB)
+		return GAME_OVER;
+
+	if(curCell > EMPTY){
+		grid[pos] *= -1;
+		if(parcours(grid, size,nb_Bomb) == CONTINUE)
+			return CONTINUE;
+		else
+			return WIN;
+	}
+	else{
+		showNumbers(grid, size, row, col);
+		if(parcours(grid, size,nb_Bomb) == CONTINUE)
+			return CONTINUE;
+		else
+			return WIN;
+	}
 }
 
